@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'semseg_node = semseg_ros2.semseg_node:main'
+            'semseg_node = semseg_ros2.semseg_node:main',
+            'visualizer_node = semseg_ros2.visualizer_node:main'
         ],
     },
 )
