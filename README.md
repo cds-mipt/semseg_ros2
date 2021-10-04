@@ -101,6 +101,33 @@ ros2 launch semseg_ros2 semseg_launch.py
 
 Нужно стремиться к тому, чтобы последовательность работы с готовым пакетом состояла только из этих четырех строк. Все остальное должно быть перенесено на этап сборки образа, то есть в Dockerfile.
 
+launch файл сконфигурирован для запуска на датасете KITTI. Чтобы запустить проигравание BAG файла, нужно сначала [скачать](https://drive.google.com/file/d/1pfzTmBGHje55STJNKxfkVbQE8ylg-6ds/view?usp=sharing) его. Так как это файл для ROS1, то для проигрывания в ROS2 понадобятся дополнительные пакеты:
+```bash
+sudo apt install \
+    ros-foxy-ros2bag \
+    ros-foxy-rosbag2 \
+    ros-foxy-ros1-bridge \
+    ros-foxy-rosbag2-bag-v2-plugins \
+    ros-foxy-rosbag2-converter-default-plugins
+```
+Для запуска проигрывания нужно сначала активировать окружение ROS1, затем ROS2:
+```bash
+source /opt/ros/noetic/setup.bash
+source /opt/ros/foxy/setup.bash
+ros2 bag play -s rosbag_v2 kitti_2011_10_03_drive_0027_synced.bag
+```
+Визуализировать результаты работы можно либо с помощью rqt
+```bash
+source /opt/ros/foxy/setup.bash
+rqt
+# Plugins -> Visualization -> Image View, в выпадающем списке выбрать желаемый топик
+```
+либо с помощью rviz:
+```bash
+source /opt/ros/foxy/setup.bash
+rviz2
+# Add -> By topic, в списке выбрать желаемый топик (Image)
+```
 
 ## Создание пакета с нуля
 
